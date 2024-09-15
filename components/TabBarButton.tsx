@@ -43,6 +43,7 @@ const TabBarButton = ({
             color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
             fontSize: 12,
           },
+          // animatedTextStyle,
         ]}
       >
         {label}
