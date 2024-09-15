@@ -11,8 +11,8 @@ const Header = (props: Props) => {
       <View style={{ flexDirection: "row", alignItems: "center", gap: 15 }}>
         <Image style={styles.userImage} source={{ uri: "https://randomuser.me/api/portraits/med/men/99.jpg" }} />
         <View style={{ flexDirection: "column", gap: 4 }}>
-          <Text style={{ fontWeight: "light", color: Colors.darkGrey }}>Welcome</Text>
-          <Text style={{ fontWeight: "bold" }}>Brad Simon</Text>
+          <Text style={{ fontSize: 13, fontWeight: "light", color: Colors.darkGrey }}>Welcome</Text>
+          <Text style={{ fontSize: 15, fontWeight: "bold", color: Colors.black }}>Brad Simon</Text>
         </View>
       </View>
       <Pressable onPress={() => {}}>
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 20,
   },
   userImage: {
     width: 50,
