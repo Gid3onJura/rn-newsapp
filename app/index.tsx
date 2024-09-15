@@ -1,21 +1,21 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
-import { useRouter } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { useRouter } from "expo-router"
 
 const Page = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <View style={styles.container}>
       <Text>Welcome Page</Text>
-      <TouchableOpacity onPress={() => router.replace("/(tabs)")}>
+      <Pressable onPress={() => router.replace("/(tabs)")}>
         <Text>Go to Home Screen</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
 
 const styles = StyleSheet.create({
   container: {
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-});
+})

@@ -1,13 +1,8 @@
-import { Pressable, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
-import { icon } from "@/constants/Icons";
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
-import { Colors } from "@/constants/Colors";
+import { Pressable, StyleSheet } from "react-native"
+import React, { useEffect } from "react"
+import { icon } from "@/constants/Icons"
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated"
+import { Colors } from "@/constants/Colors"
 
 const TabBarButton = ({
   onPress,
@@ -16,35 +11,28 @@ const TabBarButton = ({
   routeName,
   label,
 }: {
-  onPress: Function;
-  onLongPress: Function;
-  isFocused: boolean;
-  routeName: string;
-  label: string;
+  onPress: Function
+  onLongPress: Function
+  isFocused: boolean
+  routeName: string
+  label: string
 }) => {
-  const opacity = useSharedValue(0);
+  const opacity = useSharedValue(0)
 
   useEffect(() => {
-    opacity.value = withSpring(
-      typeof isFocused === "boolean" ? (isFocused ? 1 : 0) : isFocused,
-      { duration: 50 }
-    );
-  }, [opacity, isFocused]);
+    opacity.value = withSpring(typeof isFocused === "boolean" ? (isFocused ? 1 : 0) : isFocused, { duration: 50 })
+  }, [opacity, isFocused])
 
   const animatedTextStyle = useAnimatedStyle(() => {
-    const opacityValue = interpolate(opacity.value, [0, 1], [1, 0]);
+    const opacityValue = interpolate(opacity.value, [0, 1], [1, 0])
 
     return {
       opacity: opacityValue,
-    };
-  });
+    }
+  })
 
   return (
-    <Pressable
-      onPress={onPress}
-      onLongPress={onLongPress}
-      style={styles.tabbarBtn}
-    >
+    <Pressable onPress={onPress} onLongPress={onLongPress} style={styles.tabbarBtn}>
       {icon[routeName]({
         color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
         focused: isFocused,
@@ -55,16 +43,15 @@ const TabBarButton = ({
             color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
             fontSize: 12,
           },
-          animatedTextStyle,
         ]}
       >
         {label}
       </Animated.Text>
     </Pressable>
-  );
-};
+  )
+}
 
-export default TabBarButton;
+export default TabBarButton
 
 const styles = StyleSheet.create({
   tabbarBtn: {
@@ -73,4 +60,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 5,
   },
-});
+})
