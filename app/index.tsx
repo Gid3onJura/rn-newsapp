@@ -2,19 +2,28 @@ import { ImageBackground, Pressable, StyleSheet, Text, View } from "react-native
 import React from "react"
 import { useRouter } from "expo-router"
 import { Colors } from "@/constants/Colors"
+import Animated, { FadeInDown, FadeInRight } from "react-native-reanimated"
+import { StatusBar } from "expo-status-bar"
 
 const Page = () => {
   const router = useRouter()
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <ImageBackground source={require("../assets/images/getting-started.jpg")} style={{ flex: 1 }} resizeMode="cover">
         <View style={styles.wrapper}>
-          <Text style={styles.title}>Stay updated!</Text>
-          <Text style={styles.description}>Get breaking news and personalized updates</Text>
-          <Pressable style={styles.button} onPress={() => router.replace("/(tabs)")}>
-            <Text style={styles.buttonTxt}>Get started!</Text>
-          </Pressable>
+          <Animated.Text style={styles.title} entering={FadeInRight.delay(300).duration(500)}>
+            Stay updated!
+          </Animated.Text>
+          <Animated.Text style={styles.description} entering={FadeInRight.delay(700).duration(500)}>
+            Get breaking news and personalized updates
+          </Animated.Text>
+          <Animated.View entering={FadeInDown.delay(1200).duration(500)}>
+            <Pressable style={styles.button} onPress={() => router.replace("/(tabs)")}>
+              <Text style={styles.buttonTxt}>Get started!</Text>
+            </Pressable>
+          </Animated.View>
         </View>
       </ImageBackground>
     </View>
