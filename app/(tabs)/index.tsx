@@ -42,19 +42,23 @@ const Page = (props: Props) => {
     }
   }
 
-  const getNews = async () => {
+  const getNews = async (category: string = "") => {
     try {
+      let categoryString = ""
+      if (category.length !== 0) {
+        categoryString = "&category=" + category
+      }
       const newsDataUrl =
         process.env.EXPO_PUBLIC_NEWS_DATA_API_BASE_URL +
         "/latest?apikey=" +
         process.env.EXPO_PUBLIC_NEWS_DATA_API_KEY +
-        "&language=de&image=1&removeduplicate=1&size=10"
+        "&language=de&image=1&removeduplicate=1&size=10" +
+        categoryString
 
       const response = await axios.get(newsDataUrl)
 
       if (response && response.data) {
         setNews(response.data.results)
-        // setIsLoading(false)
       }
     } catch (error: any) {
       console.log("Error in getNews:", error.message)
@@ -62,7 +66,8 @@ const Page = (props: Props) => {
   }
 
   const onCategoryChanged = (category: string) => {
-    console.log(category)
+    setNews([])
+    getNews(category)
   }
 
   return (
