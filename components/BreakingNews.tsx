@@ -49,6 +49,9 @@ const BreakingNews = ({ newsList }: Props) => {
     onScroll: (event) => {
       scrollX.value = event.contentOffset.x
     },
+    onMomentumEnd: (event) => {
+      offset.value = event.contentOffset.x
+    },
   })
 
   const onViewableItemsChanged = ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -74,7 +77,7 @@ const BreakingNews = ({ newsList }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BreakingNews</Text>
+      <Text style={styles.title}>Breaking News</Text>
       <View style={styles.slideWrapper}>
         <Animated.FlatList
           ref={ref}
@@ -91,6 +94,12 @@ const BreakingNews = ({ newsList }: Props) => {
             setData([...data, ...newsList])
           }}
           viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+          onScrollBeginDrag={() => {
+            setIsAutoplay(false)
+          }}
+          onScrollEndDrag={() => {
+            setIsAutoplay(true)
+          }}
         />
         <Pagination items={newsList} scrollX={scrollX} paginationIndex={paginationIndex} />
       </View>

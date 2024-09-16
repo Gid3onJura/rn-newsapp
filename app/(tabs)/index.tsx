@@ -6,6 +6,8 @@ import SearchBar from "@/components/SearchBar"
 import axios from "axios"
 import { NewsDataType } from "@/types"
 import BreakingNews from "@/components/BreakingNews"
+import Categories from "@/components/Categories"
+import NewsList from "@/components/NewsList"
 
 type Props = {}
 
@@ -37,11 +39,17 @@ const Page = (props: Props) => {
     }
   }
 
+  const onCategoryChanged = (category: string) => {
+    console.log(category)
+  }
+
   return (
     <View style={(styles.container, { paddingTop: safeTop })}>
       <Header />
       <SearchBar />
       {isLoading ? <ActivityIndicator size={"large"} /> : <BreakingNews newsList={breakingNews} />}
+      <Categories onCategoryChanged={onCategoryChanged} />
+      <NewsList newsList={breakingNews} />
     </View>
   )
 }
