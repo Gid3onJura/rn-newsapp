@@ -15,7 +15,7 @@ const Pagination = ({ items, paginationIndex, scrollX }: Props) => {
     <View style={styles.container}>
       {items.map((_, index) => (
         <Animated.View
-          style={[styles.dot, { backgroundColor: paginationIndex === index ? Colors.tint : Colors.darkGrey }]}
+          style={[styles.dot, { backgroundColor: paginationIndex === index ? Colors.tint : Colors.lightGrey }]}
           key={index}
         />
       ))}

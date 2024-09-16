@@ -1,9 +1,15 @@
-import { FlatList, StyleSheet, Text, View, ViewToken } from "react-native"
-import React, { useRef, useState } from "react"
+import { FlatList, StyleSheet, Text, useWindowDimensions, View, ViewToken } from "react-native"
+import React, { useEffect, useRef, useState } from "react"
 import { Colors } from "react-native/Libraries/NewAppScreen"
 import { NewsDataType } from "@/types"
 import SliderItem from "@/components/SliderItem"
-import Animated, { useAnimatedRef, useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated"
+import Animated, {
+  scrollTo,
+  useAnimatedRef,
+  useAnimatedScrollHandler,
+  useDerivedValue,
+  useSharedValue,
+} from "react-native-reanimated"
 import Pagination from "@/components/Pagination"
 
 type Props = {
@@ -15,6 +21,29 @@ const BreakingNews = ({ newsList }: Props) => {
   const [paginationIndex, setPaginationIndex] = useState(0)
   const scrollX = useSharedValue(0)
   const ref = useAnimatedRef<Animated.FlatList<any>>()
+
+  const [isAutoplay, setIsAutoplay] = useState(true)
+  const interval = useRef<NodeJS.Timeout>()
+  const offset = useSharedValue(0)
+  const { width } = useWindowDimensions()
+
+  useEffect(() => {
+    if (isAutoplay === true) {
+      interval.current = setInterval(() => {
+        offset.value = offset.value + width
+      }, 5000)
+    } else {
+      clearInterval(interval.current)
+    }
+
+    return () => {
+      clearInterval(interval.current)
+    }
+  }, [isAutoplay, offset, width])
+
+  useDerivedValue(() => {
+    scrollTo(ref, offset.value, 0, true)
+  })
 
   const onScrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -28,16 +57,16 @@ const BreakingNews = ({ newsList }: Props) => {
     }
   }
 
-  const viewabilityConfig = {
-    waitForInteraction: true,
-    itemVisiblePercentThreshold: 70,
-  }
+  // const viewabilityConfig = {
+  //   waitForInteraction: true,
+  //   itemVisiblePercentThreshold: 70,
+  // }
 
   const viewabilityConfigCallbackPairs = useRef([
     {
       viewabilityConfig: {
         minimumViewTime: 500,
-        itemVisiblePercentThreshold: 75,
+        itemVisiblePercentThreshold: 50,
       },
       onViewableItemsChanged,
     },
