@@ -50,7 +50,7 @@ const Page = (props: Props) => {
       }
       const newsDataUrl =
         process.env.EXPO_PUBLIC_NEWS_DATA_API_BASE_URL +
-        "/latest?apikey=" +
+        "/news?apikey=" +
         process.env.EXPO_PUBLIC_NEWS_DATA_API_KEY +
         "&language=de&image=1&removeduplicate=1&size=10" +
         categoryString
