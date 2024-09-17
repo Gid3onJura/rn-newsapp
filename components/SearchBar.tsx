@@ -3,11 +3,13 @@ import React from "react"
 import { Ionicons } from "@expo/vector-icons"
 import { Colors } from "@/constants/Colors"
 
-type Props = {}
+type Props = {
+  withHoritzontalPadding: boolean
+}
 
-const SearchBar = (props: Props) => {
+const SearchBar = ({ withHoritzontalPadding }: Props) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, withHoritzontalPadding && { paddingHorizontal: 20 }]}>
       <View style={styles.searchbar}>
         <Ionicons name="search-outline" size={20} color={Colors.lightGrey} />
         <TextInput
@@ -23,7 +25,6 @@ const SearchBar = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
     marginBottom: 20,
   },
   searchbar: {
