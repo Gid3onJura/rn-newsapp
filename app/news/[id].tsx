@@ -44,7 +44,7 @@ const NewsDetails = (props: Props) => {
         setIsLoading(false)
       }
     } catch (error: any) {
-      console.log("Error in getBreakingNews:", error.message)
+      console.log("Error in getNews by id:", error.message)
     }
   }
 
